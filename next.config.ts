@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   //tránh bị lỗi khi up ảnh nếu bị lỗi tham chiếu từ supabase
   images:{
     domains:[
-      "tngantcojeoxalabmhqh.supabase.co"
+      "nosrebjnpfsgvrayqxab.supabase.co"
     ]
   }
 };
