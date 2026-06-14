@@ -28,57 +28,32 @@ const Library:React.FC<LibraryProps> = ({songs}) =>{
     console.log(songs)
     return(
         <div className="flex flex-col">
-            <div 
-            className="
-            flex
-            items-center
-            justify-between
-            px-5
-            pt-4
-            ">
-                <div 
-                className="
-                inline-flex
-                items-center
-                gap-x-2
-
-                ">
-                    <TbPlaylist className="text-neutral-400" size={26}/>
-                    <p 
-                    className="
-                    text-neutral-400
-                    font-medium
-                    text-md
-                    ">
-                        Your Library
-                    </p>
+            <div className="flex flex-col items-center justify-center pt-2 pb-4 gap-y-4">
+                <div className="group flex flex-col items-center gap-y-1 cursor-pointer hover:text-white text-neutral-400 transition">
+                    <TbPlaylist size={28}/>
+                    <p className="text-[10px] font-medium">Thư viện</p>
                 </div>
                 <AiOutlinePlus
-                onClick={onClick}
-                size={20}
-                className="
-                text-neutral-400
-                cursor-pointer
-                hover:text-white
-                transition
-
-                "
+                    onClick={onClick}
+                    size={20}
+                    className="text-neutral-400 cursor-pointer hover:text-white transition"
                 />
             </div>
-            <div 
-            className="
-            flex
-            flex-col
-            gap-y-2
-            mt-4
-            px-3
-            ">
+            <div className="flex flex-col gap-y-4 mt-4 px-1 items-center">
                 {songs.map((item) => (
-                    <MediaItem
-                    onClick={(id:string) => onPlay(id)}
-                    key={item.id}
-                    data={item}
-                    />
+                    <div 
+                        key={item.id} 
+                        onClick={() => onPlay(item.id)}
+                        className="relative rounded-md min-h-[48px] min-w-[48px] overflow-hidden cursor-pointer hover:opacity-75 transition"
+                    >
+                        {/* We use an img tag or next/image. Since useLoadImage is a hook, we can just use MediaItem but we'd need to modify MediaItem to hide text if possible. Let's just pass an extra prop or create a wrapper. Actually, using MediaItem in a narrow container will hide the text with `truncate` but it will take space. Let's create a custom icon block here. But we need `imageUrl`. We should extract a small component inside Library or just keep MediaItem but add a custom class. */}
+                        <MediaItem
+                            onClick={(id:string) => onPlay(id)}
+                            key={item.id}
+                            data={item}
+                            isIconOnly={true}
+                        />
+                    </div>
                 ))}
             </div>
         </div>

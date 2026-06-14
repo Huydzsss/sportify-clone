@@ -125,6 +125,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
+            {/* Left: Song Info */}
             <div className="flex w-full justify-start">
                 <div className="flex items-center gap-x-4">
                     <MediaItem data={song} onClick={() => {}} />
@@ -132,47 +133,60 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center">
+            {/* Center: Playback Controls */}
+            <div className="flex flex-col items-center justify-center w-full max-w-[722px]">
                 <div className="flex items-center gap-x-6">
-                    <AiFillStepBackward onClick={onPlayPrevious} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
-                    <div onClick={handlePlay} className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer">
-                        <Icon size={30} className="text-black" />
+                    {/* Shuffle Icon (mock) */}
+                    <div className="text-neutral-400 cursor-pointer hover:text-white transition">
+                        <svg role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor"><path d="M13.151.922a.75.75 0 1 0-1.06 1.06L13.109 3H11.16a3.75 3.75 0 0 0-2.873 1.34l-6.173 7.356A2.25 2.25 0 0 1 .39 12.5H0V14h.391a3.75 3.75 0 0 0 2.873-1.34l6.173-7.356a2.25 2.25 0 0 1 1.724-.804h1.947l-1.017 1.018a.75.75 0 0 0 1.06 1.06L15.98 4.5l-2.83-3.578z"></path><path d="M12.449 8.224a.75.75 0 1 0-1.06 1.06L12.408 10H11.16a2.25 2.25 0 0 1-1.724-.804L8.14 7.653l1.144-1.363 1.32 1.573a3.75 3.75 0 0 0 2.873 1.34h1.637l-1.017-1.018a.75.75 0 1 0-1.06-1.06l2.829-2.828 2.829 2.828a.75.75 0 1 0-1.06 1.06L14.46 6.51h-3.3z"></path></svg>
                     </div>
-                    <AiFillStepForward onClick={onPlayNext} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+                    <AiFillStepBackward onClick={onPlayPrevious} size={24} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+                    <div onClick={handlePlay} className="flex items-center justify-center h-8 w-8 rounded-full bg-white p-1 cursor-pointer hover:scale-105 transition">
+                        <Icon size={24} className="text-black" />
+                    </div>
+                    <AiFillStepForward onClick={onPlayNext} size={24} className="text-neutral-400 cursor-pointer hover:text-white transition" />
                     <BsRepeat
-                        size={30}
+                        size={20}
                         onClick={toggleLoop}
-                        className={`cursor-pointer transition ${isLooping ? "text-white" : "text-neutral-400"}`}
-                    />
-                    <TbMicrophone2 
-                        size={30} 
-                        onClick={() => setShowLyrics(true)} 
-                        className="cursor-pointer transition text-neutral-400 hover:text-white" 
+                        className={`cursor-pointer transition hover:text-white ${isLooping ? "text-green-500 hover:text-green-400" : "text-neutral-400"}`}
                     />
                 </div>
 
-                {/* Thanh tiến trình phát nhạc */}
-                <input
-                    type="range"
-                    min={0}
-                    max={duration}
-                    value={progress}
-                    onChange={(e) => handleSeekChange(Number(e.target.value))}
-                    className="w-full mt-2"
-                />
-                {/* Thời gian hiện tại và tổng thời lượng */}
-                <div className="flex justify-between w-full text-sm text-gray-400 mt-1 ">
-                    <span>{formatTime(progress)}</span>
-                    <span>{formatTime(duration)}</span>
+                {/* Progress Bar */}
+                <div className="flex items-center w-full gap-x-2 mt-2">
+                    <span className="text-xs text-neutral-400">{formatTime(progress)}</span>
+                    <input
+                        type="range"
+                        min={0}
+                        max={duration}
+                        value={progress}
+                        onChange={(e) => handleSeekChange(Number(e.target.value))}
+                        className="w-full h-1 bg-neutral-600 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-xs text-neutral-400">{formatTime(duration)}</span>
                 </div>
             </div>
 
-            <div className="hidden md:flex w-full justify-end pr-2">
-                <div className="flex items-center gap-x-2 w-[120px]">
-                    <VolumeIcon size={34} onClick={toggleMute} className="cursor-pointer" />
+            {/* Right: Extra Controls */}
+            <div className="hidden md:flex w-full justify-end pr-2 items-center gap-x-4">
+                <TbMicrophone2 
+                    size={20} 
+                    onClick={() => setShowLyrics(true)} 
+                    className="cursor-pointer transition text-neutral-400 hover:text-white" 
+                />
+                {/* Queue (mock) */}
+                <svg role="presentation" height="16" width="16" aria-hidden="true" className="text-neutral-400 hover:text-white cursor-pointer" viewBox="0 0 16 16" fill="currentColor"><path d="M15 15H1v-1.5h14V15zm0-4.5H1V9h14v1.5zm-14-7A2.5 2.5 0 0 1 3.5 1h9a2.5 2.5 0 0 1 0 5h-9A2.5 2.5 0 0 1 1 3.5zm2.5-1a1 1 0 0 0 0 2h9a1 1 0 1 0 0-2h-9z"></path></svg>
+                {/* Connect Device (mock) */}
+                <svg role="presentation" height="16" width="16" aria-hidden="true" className="text-neutral-400 hover:text-white cursor-pointer" viewBox="0 0 16 16" fill="currentColor"><path d="M6 2.75C6 1.784 6.784 1 7.75 1h6.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15h-6.5A1.75 1.75 0 0 1 6 13.25V2.75zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h6.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25h-6.5zm-6 0a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25H4V11H1.75A1.75 1.75 0 0 1 0 9.25v-6.5C0 1.784.784 1 1.75 1H4v1.5H1.75zM4 15H2v-1.5h2V15z"></path></svg>
+                
+                <div className="flex items-center gap-x-2 w-[100px]">
+                    <VolumeIcon size={20} onClick={toggleMute} className="cursor-pointer text-neutral-400 hover:text-white" />
                     <Slider value={volume} onChange={(value) => setVolume(value)} />
                 </div>
+                {/* Fullscreen (mock) */}
+                <svg role="presentation" height="16" width="16" aria-hidden="true" className="text-neutral-400 hover:text-white cursor-pointer" viewBox="0 0 16 16" fill="currentColor"><path d="M6.53 9.47a.75.75 0 0 1 0 1.06l-2.72 2.72h1.018a.75.75 0 0 1 0 1.5H1.25v-3.579a.75.75 0 0 1 1.5 0v1.018l2.72-2.72a.75.75 0 0 1 1.06 0zm2.94-2.94a.75.75 0 0 1 0-1.06l2.72-2.72h-1.018a.75.75 0 1 1 0-1.5h3.578v3.579a.75.75 0 0 1-1.5 0V3.81l-2.72 2.72a.75.75 0 0 1-1.06 0z"></path></svg>
             </div>
+            
             <LyricsOverlay 
                 song={song} 
                 progress={progress} 

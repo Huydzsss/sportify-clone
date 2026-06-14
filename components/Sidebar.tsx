@@ -10,6 +10,7 @@ import { Song } from "@/type";
 import { twMerge } from "tailwind-merge";
 import Player from "./Player";
 import usePlayer from "@/hooks/userPlayer";
+import RightSidebar from "./RightSidebar";
 
 // Định nghĩa giao diện `SidebarProps` với một prop `children` có kiểu là `ReactNode`
 interface SidebarProps {
@@ -42,28 +43,34 @@ const Sidebar: React.FC<SidebarProps> = ({ children,songs }) => {
         <div className={twMerge(`
         flex
         h-full
-        `,player.activeId && "h-[calc(100% - 30px)]")}>
-            {/* Sidebar chỉ hiện trên màn hình medium trở lên */}
-            <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
+        bg-black
+        p-2
+        gap-x-2
+        `,player.activeId && "h-[calc(100% - 80px)]")}>
+            {/* Collapsed Left Sidebar */}
+            <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[72px]">
                 <Box>
-                    <div className="flex flex-col gap-y-4 px-5 py-4">
-                        {/* Duyệt qua các route và render SidebarItem */}
+                    <div className="flex flex-col gap-y-4 py-4 items-center">
                         {routes.map((item) => (
                             <SidebarItem 
-                                key={item.label} // Đảm bảo mỗi item có `key`
-                                {...item} // Truyền tất cả các prop vào SidebarItem
+                                key={item.label}
+                                {...item}
                             />
                         ))}
                     </div>
                 </Box>
-                <Box className="overflow-y-auto h-full">
+                <Box className="overflow-y-auto h-full flex flex-col items-center py-4">
                    <Library songs={songs}/>
                 </Box>
             </div>
-            {/* Phần nội dung của Sidebar */}
-            <main className="h-full flex-1 overflow-y-auto py-2">
+            
+            {/* Main Content */}
+            <main className="h-full flex-1 overflow-y-auto bg-neutral-900 rounded-lg">
                 {children}
             </main>
+
+            {/* Right Sidebar (AIZO) */}
+            <RightSidebar />
         </div>
     ); // Kết thúc câu lệnh `return`
 }

@@ -16,11 +16,11 @@ const SidebarItem: React.FC<SidebarProps> = ({
     href
 }) => {
     return (
-        <Link href={href} className={twMerge('flex flex-row h-auto items-center w-full gap-x-4 text-md font-medium cursor-pointer hover:text-white transition text-neutral-400 py-1',
+        <Link href={href} className={twMerge('flex flex-col h-auto items-center justify-center w-full gap-y-1 text-xs font-medium cursor-pointer hover:text-white transition text-neutral-400 py-2',
             active && "text-white"
         )}>
-            <Icon size={26}/>
-            <p className="truncate w-full">{label}</p>
+            <Icon size={28}/>
+            <p className="truncate text-[10px]">{label}</p>
         </Link>
     )
 }

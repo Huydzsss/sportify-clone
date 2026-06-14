@@ -4,10 +4,11 @@ import Image from "next/image";
 
 interface MediaItemProps{
     data:Song;
-    onClick:(id:string) => void;
+    onClick?:(id:string) => void;
+    isIconOnly?: boolean;
 }
 
-const MediaItem:React.FC<MediaItemProps> = ({data,onClick}) => {
+const MediaItem:React.FC<MediaItemProps> = ({data,onClick, isIconOnly}) => {
     const imageUrl = useLoadImage(data);
     const handleClick = () => {
         if(onClick){
@@ -48,25 +49,26 @@ const MediaItem:React.FC<MediaItemProps> = ({data,onClick}) => {
                 "
                 />
             </div>
-            <div className="
-            flex
-            flex-col
-            gap-y-1
-            overflow-hidden
+            {!isIconOnly && (
+                <div className="
+                flex
+                flex-col
+                gap-y-1
+                overflow-hidden
+                ">
+                    <p
+                    className="
+                    font-semibold
+                    text-white
+                    truncate
 
-            ">
-                <p
-                className="
-                font-semibold
-                text-white
-                truncate
-
-                "
-                >{data.title}</p>
-                <p className="truncate text-neutral-400">
-                    {data.author}
-                </p>
-            </div>
+                    "
+                    >{data.title}</p>
+                    <p className="truncate text-neutral-400">
+                        {data.author}
+                    </p>
+                </div>
+            )}
         </div>
     )
 }

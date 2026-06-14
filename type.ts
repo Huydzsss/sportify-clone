@@ -18,6 +18,7 @@ export interface Song{
     song_path:string;
     image_path:string;
     lyrics?:string;
+    category?:string;
     play_count?:number;
 }
 

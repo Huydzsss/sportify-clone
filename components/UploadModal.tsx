@@ -27,7 +27,8 @@ const UploadModal = () => {
             title: '',
             song: null,
             image: null,
-            lyrics: ''
+            lyrics: '',
+            category: 'music'
         }
     })
     const onChange = (open: boolean) => {
@@ -99,7 +100,8 @@ const UploadModal = () => {
                                 author:values.author,
                                 image_path:imageData.path,
                                 song_path:songData.path,
-                                lyrics: values.lyrics || null
+                                lyrics: values.lyrics || null,
+                                category: values.category || 'music'
                             });
                 if(supabaseError){
                     setIsLoading(false);
@@ -140,6 +142,19 @@ const UploadModal = () => {
                     {...register('author', { required: true })}
                     placeholder="Song author"
                 />
+                <div className="flex flex-col gap-y-2">
+                    <label className="text-sm font-medium">Category</label>
+                    <select
+                        disabled={isLoading}
+                        {...register('category')}
+                        className="flex w-full rounded-md bg-neutral-700 border border-transparent px-3 py-3 text-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 text-white placeholder:text-neutral-400"
+                    >
+                        <option value="music">Nhạc</option>
+                        <option value="podcast">Podcast</option>
+                        <option value="radio">Radio</option>
+                        <option value="audiobook">Audiobook</option>
+                    </select>
+                </div>
                 <div>
                     <div className="
                             pb-1
