@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Spotify Clone (Fullstack Next.js)
 
-## Getting Started
+Welcome to the **Spotify Clone** repository! This is a full-stack music streaming application built to mimic the core functionalities of Spotify, featuring a modern UI, audio playback, song uploads, liked songs, and premium subscriptions.
 
-First, run the development server:
+## ✨ Features
 
+- **Audio Player:** Play, pause, skip, and adjust volume with a custom global player.
+- **Song Upload:** Users can upload their own MP3 files and cover images.
+- **Library & Liked Songs:** Save your favorite tracks and build a personal library.
+- **Search System:** Search for songs by title in real-time.
+- **Authentication:** Secure login and registration using Supabase Auth (Email, GitHub, etc.).
+- **Premium Subscriptions:** Stripe integration for premium plans and checkout.
+- **Responsive Design:** Fully responsive UI built with Tailwind CSS, supporting mobile and desktop.
+- **Category Filtering:** Filter songs by Music, Podcast, etc.
+
+## 🛠️ Technologies Used
+
+- **Framework:** [Next.js 14+ (App Router)](https://nextjs.org)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Database & Auth:** [Supabase](https://supabase.com/) (PostgreSQL)
+- **Payments:** [Stripe](https://stripe.com/)
+- **State Management:** Zustand
+- **Form Handling:** React Hook Form & yup
+- **UI Components:** Radix UI, React Icons
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally on your machine.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/spotify-clone.git
+cd spotify-clone
+```
+
+### 2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Setup environment variables
+Create a `.env.local` file in the root directory and add the following variables. You will need to get these from your Supabase and Stripe dashboards.
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+```
+
+### 4. Setup Database (Supabase)
+You need to set up the database schema in Supabase. You can find the SQL migrations or tables needed for `users`, `songs`, `liked_songs`, `products`, `prices`, and `subscriptions`.
+
+### 5. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🤝 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/spotify-clone/issues).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 License
+This project is [MIT](https://choosealicense.com/licenses/mit/) licensed.

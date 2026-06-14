@@ -5,9 +5,8 @@ import { cookies } from "next/headers";
 
 export async function incrementPlayCount(songId: string | number) {
   try {
-    // Đoạn log này chỉ hiển thị trên Terminal của Server (VS Code), không lộ ra trình duyệt
     console.log(`\n[BACKEND SERVER ACTION] Đang xử lý tăng lượt nghe cho bài hát ID: ${songId}...`);
-    
+
     const cookieStore = await cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
