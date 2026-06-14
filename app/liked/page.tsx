@@ -56,13 +56,13 @@ const Liked = async () => {
                             lg:text-7xl
                             font-bold
                             ">
-                                Liked song
+                                Bài hát yêu thích
                             </h1>
                         </div>
                     </div>
                 </div>
             </Header>
-            <LikedContent songs={songs}/>
+            <LikedContent songs={songs} />
         </div>
     );
 };

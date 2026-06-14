@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children,songs }) => {
         gap-x-2
         `,player.activeId && "h-[calc(100% - 80px)]")}>
             {/* Collapsed Left Sidebar */}
-            <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[72px]">
+            <div className="flex flex-col gap-y-2 bg-black h-full w-[80px] min-w-[80px]">
                 <Box>
                     <div className="flex flex-col gap-y-4 py-4 items-center">
                         {routes.map((item) => (

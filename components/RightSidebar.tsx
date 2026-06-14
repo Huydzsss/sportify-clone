@@ -7,12 +7,21 @@ import Image from "next/image";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiPlusCircle } from "react-icons/bi";
 
+import { useState, useEffect } from "react";
+
 const RightSidebar = () => {
     const player = usePlayer();
     const { song } = useGetSongById(player.activeId);
     const imageUrl = useLoadImage(song!);
+    const [isOpen, setIsOpen] = useState(true);
 
-    if (!song || !player.activeId) {
+    useEffect(() => {
+        if (player.activeId) {
+            setIsOpen(true);
+        }
+    }, [player.activeId]);
+
+    if (!song || !player.activeId || !isOpen) {
         return null;
     }
 
@@ -21,7 +30,11 @@ const RightSidebar = () => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-white font-bold text-lg">AIZO</h2>
                 <div className="flex gap-x-2 text-neutral-400">
-                    <AiOutlineClose size={20} className="cursor-pointer hover:text-white" />
+                    <AiOutlineClose 
+                        size={20} 
+                        className="cursor-pointer hover:text-white" 
+                        onClick={() => setIsOpen(false)}
+                    />
                 </div>
             </div>
 

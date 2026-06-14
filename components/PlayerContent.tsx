@@ -124,9 +124,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 h-full">
+        <div className="flex md:grid md:grid-cols-3 justify-between items-center h-full w-full">
             {/* Left: Song Info */}
-            <div className="flex w-full justify-start">
+            <div className="flex w-1/2 md:w-full justify-start">
                 <div className="flex items-center gap-x-4">
                     <MediaItem data={song} onClick={() => {}} />
                     <LikeButton songId={song.id} />
@@ -134,13 +134,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             </div>
 
             {/* Center: Playback Controls */}
-            <div className="flex flex-col items-center justify-center w-full max-w-[722px]">
-                <div className="flex items-center gap-x-6">
+            <div className="flex md:flex-col items-center justify-end md:justify-center w-1/2 md:w-full max-w-[722px] pr-2 md:pr-0">
+                <div className="flex items-center gap-x-4 md:gap-x-6">
                     {/* Shuffle Icon (mock) */}
-                    <div className="text-neutral-400 cursor-pointer hover:text-white transition">
+                    <div className="hidden md:block text-neutral-400 cursor-pointer hover:text-white transition">
                         <svg role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor"><path d="M13.151.922a.75.75 0 1 0-1.06 1.06L13.109 3H11.16a3.75 3.75 0 0 0-2.873 1.34l-6.173 7.356A2.25 2.25 0 0 1 .39 12.5H0V14h.391a3.75 3.75 0 0 0 2.873-1.34l6.173-7.356a2.25 2.25 0 0 1 1.724-.804h1.947l-1.017 1.018a.75.75 0 0 0 1.06 1.06L15.98 4.5l-2.83-3.578z"></path><path d="M12.449 8.224a.75.75 0 1 0-1.06 1.06L12.408 10H11.16a2.25 2.25 0 0 1-1.724-.804L8.14 7.653l1.144-1.363 1.32 1.573a3.75 3.75 0 0 0 2.873 1.34h1.637l-1.017-1.018a.75.75 0 1 0-1.06-1.06l2.829-2.828 2.829 2.828a.75.75 0 1 0-1.06 1.06L14.46 6.51h-3.3z"></path></svg>
                     </div>
-                    <AiFillStepBackward onClick={onPlayPrevious} size={24} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+                    <AiFillStepBackward onClick={onPlayPrevious} size={24} className="hidden md:block text-neutral-400 cursor-pointer hover:text-white transition" />
                     <div onClick={handlePlay} className="flex items-center justify-center h-8 w-8 rounded-full bg-white p-1 cursor-pointer hover:scale-105 transition">
                         <Icon size={24} className="text-black" />
                     </div>
@@ -148,12 +148,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                     <BsRepeat
                         size={20}
                         onClick={toggleLoop}
-                        className={`cursor-pointer transition hover:text-white ${isLooping ? "text-green-500 hover:text-green-400" : "text-neutral-400"}`}
+                        className={`hidden md:block cursor-pointer transition hover:text-white ${isLooping ? "text-green-500 hover:text-green-400" : "text-neutral-400"}`}
                     />
                 </div>
 
                 {/* Progress Bar */}
-                <div className="flex items-center w-full gap-x-2 mt-2">
+                <div className="hidden md:flex items-center w-full gap-x-2 mt-2">
                     <span className="text-xs text-neutral-400">{formatTime(progress)}</span>
                     <input
                         type="range"
