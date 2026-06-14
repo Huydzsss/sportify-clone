@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 
 import { AccountContent } from './components/AccountContent';
+import { ProfileContent } from './components/ProfileContent';
 
 const Account = () => {
   return (
@@ -18,6 +19,7 @@ const Account = () => {
           <h1 className="text-white text-3xl font-semibold">Account Settings</h1>
         </div>
       </Header>
+      <ProfileContent />
       <AccountContent />
     </div>
   );

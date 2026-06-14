@@ -5,8 +5,9 @@ import getSongs from "./getSongs";
 import { useUser } from "@/hooks/useUser";
 
 export const getLikedSongs = async (): Promise<Song[]> => {
+    const cookieStore = await cookies();
     const supabase = createServerComponentClient({
-        cookies: cookies
+        cookies: () => cookieStore
     });
    const {data:{session}} = await supabase.auth.getSession();
 

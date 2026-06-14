@@ -25,7 +25,7 @@ const AuthModal = () => {
         }
     },[session,router,onClose])
     return(
-        <Modal title="Wecome Back" descripition="Login to account" onChange={onChange} isOpen={isOpen}>
+        <Modal title="Welcome Back" description="Login to account" onChange={onChange} isOpen={isOpen}>
             Test AuthModal!
             <Auth
             theme="dark"

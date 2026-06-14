@@ -21,9 +21,9 @@ const Header:React.FC<HeaderProps> = ({children,className}) =>{
     const authModal = useAuthModal();
     const router = useRouter();
     const supabaseClient = useSupabaseClient();
-    const { user } = useUser();
-    const avatarUrl = user?.user_metadata?.avatar_url;
-    const fullName = user?.user_metadata?.full_name || "User";
+    const { user, userDetails } = useUser();
+    const avatarUrl = userDetails?.avatar_url || user?.user_metadata?.avatar_url;
+    const fullName = userDetails?.full_name || user?.user_metadata?.full_name || "User";
     const handleLogOut = async() =>{
         const {error} = await supabaseClient.auth.signOut();
         router.refresh();

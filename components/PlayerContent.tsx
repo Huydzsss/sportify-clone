@@ -6,10 +6,13 @@ import LikeButton from "./LikeButton";
 import { BsPause, BsPlay, BsRepeat } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { TbMicrophone2 } from "react-icons/tb";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/userPlayer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useSound from "use-sound";
+import LyricsOverlay from "./LyricsOverlay";
+import { incrementPlayCount } from "@/actions/incrementPlayCount";
 
 interface PlayerContentProps {
     song: Song;
@@ -23,13 +26,23 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const [progress, setProgress] = useState(0);
     const [duration, setDuration] = useState(0);
     const [isLooping, setIsLooping] = useState(false);
+    const [showLyrics, setShowLyrics] = useState(false);
+
+    const hasIncremented = useRef(false);
 
     const Icon = isPlaying ? BsPause : BsPlay;
     const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
 
     const [play, { pause, sound }] = useSound(songUrl, {
         volume,
-        onplay: () => setIsPlaying(true),
+        onplay: () => {
+            setIsPlaying(true);
+            // Gọi Backend Server Action để đếm lượt nghe (chỉ đếm 1 lần mỗi khi đổi bài)
+            if (!hasIncremented.current) {
+                hasIncremented.current = true;
+                incrementPlayCount(song.id).catch(console.error);
+            }
+        },
         onend: () => {
             if (isLooping) {
                 play();
@@ -57,6 +70,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             sound.stop(); // Stop the current song when the songUrl changes
             setIsPlaying(false); // Reset playing state
             setProgress(0); // Reset progress
+            hasIncremented.current = false; // Reset cờ đếm lượt nghe
         }
     }, [songUrl]); // This effect will run when songUrl changes
     
@@ -130,6 +144,11 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                         onClick={toggleLoop}
                         className={`cursor-pointer transition ${isLooping ? "text-white" : "text-neutral-400"}`}
                     />
+                    <TbMicrophone2 
+                        size={30} 
+                        onClick={() => setShowLyrics(true)} 
+                        className="cursor-pointer transition text-neutral-400 hover:text-white" 
+                    />
                 </div>
 
                 {/* Thanh tiến trình phát nhạc */}
@@ -154,6 +173,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                     <Slider value={volume} onChange={(value) => setVolume(value)} />
                 </div>
             </div>
+            <LyricsOverlay 
+                song={song} 
+                progress={progress} 
+                isOpen={showLyrics} 
+                onClose={() => setShowLyrics(false)} 
+            />
         </div>
     );
 };
